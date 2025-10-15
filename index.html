@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title id="d2rdataguide">D2R Data Guide (Corrected)</title>
+	<link rel="shortcut icon" href="https://cdn2.steamgriddb.com/icon/8091588a3968da46e3e43a76bf3b3a98.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+<!---  Style --->
+
+	<style>
+		* {
+			box-sizing: border-box;
+			font-family: Arial, sans-serif;
+			font-size: 1em;
+		}
+
+		body {
+			margin-top: 0;
+			margin-right: 0;
+			width: 100vw;
+			height: 100vh;
+			overflow: auto;
+			overflow-x: hidden;
+			padding: 0 1.59em 2em 17em;
+			background-color: black;
+			color: #d3d3d3;
+			font-size: 14px;
+		}
+
+		a:link {
+			color: #bf6606;
+			text-decoration: none;
+		}
+
+		a:visited {
+			color: #bf6606;
+		}
+
+		a:active {
+			color: #bf6606;
+		}
+
+		.d2dgtitle {
+			margin-bottom: -50px;
+		}
+
+		.fork {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			z-index: 3;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		table {
+			margin: 0.5em 0 1em 0;
+			border-collapse: collapse;
+		}
+
+		td,
+		th {
+			border: 1px solid white;
+		}
+
+		td {
+			padding: 0 5.4pt 0 5.4pt;
+		}
+
+		ol {
+			margin-bottom: 0;
+		}
+
+		ul {
+			margin-bottom: 0;
+		}
+
+		h1 {
+			font-size: 54pt;
+			margin-top: 0.25em;
+			margin-bottom: 0em;
+		}
+
+		h2 {
+			font-size: 30pt;
+			margin-top: 0.75em;
+			margin-bottom: 0em;
+			color: #156603;
+		}
+
+		h3 {
+			margin-top: 0.5em;
+			margin-bottom: 0.25em;
+			font-size: 16pt;
+			font-weight: bold;
+			color: #4472C4;
+		}
+
+		.toc {
+			position: fixed;
+			background: black;
+			left: 0em;
+			top: 0em;
+			padding: 1em;
+			width: 15em;
+			height: 100vh;
+			line-height: 2;
+			overflow-y: auto;
+		}
+
+		.toc ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.toc ul ul {
+			padding-left: 2em;
+		}
+
+		.toc li a {
+			display: inline-block;
+			color: #4472C4;
+			text-decoration: none;
+			transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+		}
+
+		.toc li.visible>a {
+			color: rgb(96, 96, 96);
+			transform: translate(5px);
+		}
+
+		.toc-marker {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		.toc-marker path {
+			transition: all 0.3s ease;
+		}
+
+		.contents {
+			padding: 1em;
+			font-size: 1.1em;
+			font-family: "Frank Ruhl Libre", sans-serif;
+		}
+
+		.contents img {
+			max-width: 100%;
+		}
+
+		.contents .code-block {
+			white-space: pre;
+			overflow: auto;
+			max-width: 100%;
+		}
+
+		.contents .code-block code {
+			display: block;
+			background-color: #f9f9f9;
+			padding: 10px;
+		}
+
+		.contents .code-inline {
+			background-color: #f9f9f9;
+			padding: 4px;
+		}
+
+		p>b {
+			color: #c7b377;
+		}
+
+		Tt {
+			color: #156603;
+		}
+
+		@media screen and (max-width: 1200px) {
+			body {
+				font-size: 14px;
+			}
+		}
+
+		.highlight {
+			background-color: rgba(255, 255, 0, 0.5);
+			transition: background-color 1.0s ease-out;
+		}
+
+		.fade-out {
+			background-color: rgba(255, 255, 0, 0);
+			transition: background-color 2.0s ease-out;
+		}
+	</style>
+</head>
+
+<!---  Header  --->
+
+<body>
+	<div>
+		<header>
+			<div>
+				<h1 class="d2dgtitle" id="Title"><span style="color: #4472C4">D2RLAN Loot Filter</span></h1>
+			</div><br><br><br><br>
+			This guide will be used to breakdown the logic, limits and the usage of the D2RLAN Loot Filter.<br>
+			The D2RLAN Filter can be used for any D2R mod that is D2RLAN-compatible, and examples will be
+			provided.
+
+			<img loading="lazy" width="149" height="149"
+				src="https://static.wixstatic.com/media/698f72_651b1e00f8934df2b52ff40435288e00~mv2.png" class="fork"
+				alt="This document is not guaranteed to be 100% accurate or complete" data-recalc-dims="1"></a>
+		</header>
+
+		<!---  Side Menu  --->
+
+		<section>
+			<div class="Scriptcontent">
+				<nav class="toc">
+					<ul>
+						<li><a href="#Title"><span style="color: whitesmoke">D2RLAN Loot Filter</span></a></li>
+						<li><a href="#FilterBasics"><span style="color: #c7b377"><b>Filter Basics</b></span></a></li>
+						<ul>
+							<li><a href="#FilesUsed">Files Used</a></li>
+							<li><a href="#DataTypes">Data Types</a></li>
+						</ul>
+						<li><a href="#Conditions"><span style="color: #c7b377"><b>Conditions</b></span></a></li>
+						<ul>
+							<li><a href="#Conditions-Core">- Core</a></li>
+							<li><a href="#Conditions-Subjective">- Subjective</a></li>
+							<li><a href="#Conditions-Situational">- Situational</a></li>
+						</ul>
+						<li><a href="#Displays"><span style="color: #c7b377"><b>Displays</b></span></a></li>
+						<ul>
+							<li><a href="#Displays-ItemNames">- Item Names</a></li>
+							<li><a href="#Displays-Tooltip">- Description/Tooltip</a></li>
+							<li><a href="#Displays-Actions">- Actions</a></li>
+						</ul>
+						<li><a href="#GlobalOptions"><span style="color: #c7b377"><b>Global Options</b></span></a></li>
+						<ul>
+							<li><a href="#Globals-Outputs">- Output Values</a></li>
+							<li><a href="#Globals-Operands">- Special Operands</a></li>
+							<li><a href="#Globals-FilterControls">- Filter Controls</a></li>
+						</ul>
+						<li><a href="#DemoTemplates"><span style="color: #c7b377"><b>Demo Templates</b></span></a></li>
+						<ul>
+							<li><a href="#Templates-Barebones">Barebones</a></li>
+							<li><a href="#Templates-RMDExample">ReMoDDeD Example</a></li>
+						</ul>
+					</ul>
+				</nav>
+
+				<!---  Filter Basics --->
+
+				<article class="contents">
+					<details>
+					<summary id="FilterBasics" style="cursor: pointer; background: #101010; color: #156603; padding: 5px 10px; font-weight: bold; font-size: 36px;">Filter Basics</summary>
+					<h3 id="FilesUsed">Files Used</h3>
+					<p>There are 3 files the lootfilter will need for proper operation and user control.</p>
+					<p>If any of these 3 are out-of-date or corrupted/bugged, then functionality will be negatively impacted</p><br>
+
+					<p id="File1"><b>D2RHUD.DLL</b> - This file is used to interact with the game directly. It acts as the middle-man between <a href="#File2">LootFilter.lua</a> and game functionality.<br>
+						<span style="color: lightseagreen"><b>Location: </b></span>D2RLAN/Launcher/D2RHUD.DLL</h3><br>
+						<span style="color: lightseagreen"><b>Latest Version: </b></span>1.4.2</h3><br>
+						<span style="color: lightseagreen"><b>Code Source: </b></span><a href="https://github.com/locbones/D2RHUD-2.4">https://github.com/locbones/D2RHUD-2.4</a></h3><br><br>
+					<p id="File2"><b>LootFilter.LUA</b> - This file acts as the control logic on the filter side, acting as the middle-man between <a href="#File3">LootFilter_Config.lua</a> and <a href="#File1">D2RHUD.dll</a>.<br>
+						<span style="color: lightseagreen"><b>Location: </b></span>D2RLAN/D2R/LootFilter.LUA</h3><br>
+						<span style="color: lightseagreen"><b>Latest Version: </b></span>1.3.6</h3><br>
+						<span style="color: lightseagreen"><b>Code Source: </b></span><a href="https://github.com/locbones/D2RLAN-Filters">https://github.com/locbones/D2RLAN-Filters</a></h3><br><br>
+					<p id="File3"><b>LootFilter_Config.LUA</b> - This file is what's ultimately controlled by <b>YOU</b>. Add rulesets that will actively engage with the game in real-time.<br>
+						<span style="color: lightseagreen"><b>Location: </b></span>D2RLAN/D2R/LootFilter_Config.LUA</h3><br>
+						<span style="color: lightseagreen"><b>Latest Version: </b></span>1.0.0</h3><br>
+						<span style="color: lightseagreen"><b>Code Source: </b></span><a href="https://github.com/locbones/D2RLAN-Filters">https://github.com/locbones/D2RLAN-Filters</a></h3><br><br><br>
+
+				<!---  The Basics --->
+					<h3 id="DataTypes">Data Types</h3>
+					<p>This loot filter allows you to setup 'active' rulesets to precisely control what items you see, and how you see them.</p>
+					<p>They are active, because they will interact with the game directly, and allow you to process rules based on item attributes (quality, stats, ilvl, etc).</p>
+					<p>Items can be matched by multiple rules, allowing a variety of separate modifications to be done on a broader basis.</p><br>
+					<p>All controls are broadly split into three different types: <span style="color: lightseagreen">Conditions</span>, <span style="color: lightseagreen">Displays</span> and <span style="color: lightseagreen">Global Options</span><br>			
+						<p>- <a href="#Conditions-Core">Conditions</a> control what the rule must satisfy in order to be 'matched' for that item's Display option(s)<br></p>
+						<p>- <a href="#Displays-ItemNames">Displays</a> control what happens when all of the conditions are satisfied. Such as hiding the item, altering it's color, adding text, etc.<br>
+						<p>- <a href="#Globals-Outputs">Global Options</a> control filter-wide logic, such as desired language, reload message text, filter level, debug mode, and more.</p><br></details><br>
+
+					<!---  Conditions --->
+					<details>
+					<summary id="Conditions" style="cursor: pointer; background: #101010; color: #156603; padding: 5px 10px; font-weight: bold; font-size: 36px;">Conditions</summary>
+					<h3 id="Conditions-Core">Core Conditions</h3>
+					<p>These are conditions that will help you determine <b>what</b> the item is; it's core identity</p>
+
+				<!---  Condition: code(s) --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Item Code(s)
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Code" style="margin: 0;"><b>code/codes</b> - Defines the itemcodes that should match this condition. Retrieved from Armor, Misc, or Weapons.txt <b>code</b> column</p>
+							<ul style="margin: 5 0 0 0px;">
+    							<li>If no other conditions are set, it will match all items of that code or codes.</li>
+    							<li>A special case exists if using <span style="color: lightseagreen">codes: “allitems”</span> to match all items.</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>code = “abc”</code></pre>
+        					<p><span style="color: red">OR</span></p>
+        					<pre><code>codes = { “abc”, “def”, “ghi” }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>codes = “allitems”</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: ilvl --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Item Level
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-ItemLevel" style="margin: 0;"><b>ilvl</b> - Defines the item level(s) that should match the condition. Uses a numeric value</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>ilvl = 55</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>ilvl = "55+"</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: index --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Set/Unique Identifier
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Index" style="margin: 0;"><b>index</b> - Defines the set or unique ID# that should match the condition. Retrieved from Set/UniqueItems.txt <b>*ID</b> column*</p>
+							<ul style="margin: 5 0 0 0px;">
+    							<li>*ID# is technically hardcoded to the row in the .txt file, but the *ID column will usually match it</li>
+								<li>Set and Unique items will have a different index than each other, as they read from different files</li>
+    							<li>This feature can be used for hosts or single-player games to determine the exact set/unique before it's identified</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>index = 122</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>index = { 122, 123, 124 }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: quality --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Quality
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Quality" style="margin: 0;"><b>quality</b> - Defines the quality that should match the condition. Uses a numeric value 1-9 to determine quality</p>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Value</b></td><td><b>Quality</b></td></tr>
+        						<tr><td style="text-align: center;">1</td><td>Low</td></tr>
+        						<tr><td style="text-align: center;">2</td><td>Normal</td></tr>
+        						<tr><td style="text-align: center;">3</td><td>Superior</td></tr>
+        						<tr><td style="text-align: center;">4</td><td><span style="color: #6e6eff">Magic</span></td></tr>
+        						<tr><td style="text-align: center;">5</td><td><span style="color: #00fc00">Set</span></td></tr>
+        						<tr><td style="text-align: center;">6</td><td><span style="color: #ffff64">Rare</span></td></tr>
+        						<tr><td style="text-align: center;">7</td><td><span style="color: #c7b377">Unique</span></td></tr>
+        						<tr><td style="text-align: center;">8</td><td><span style="color: #ffa800">Crafted</span></td></tr>
+        						<tr><td style="text-align: center;">9</td><td><span style="color: #008000">Tempered</span></td></tr>
+    						</table><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>quality = 3</code></pre>
+        					<p><span style="color: red">OR</span></p>
+        					<pre><code>quality = { “1”, “3”, “5” }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>quality = “3-”</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: rarity --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Rarity
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Rarity" style="margin: 0;"><b>rarity</b> - Defines the rarity that should match the condition. Uses a numeric value 1-3 to determine rarity</p>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Value</b></td><td><b>Rarity</b></td></tr>
+        						<tr><td style="text-align: center;">1</td><td>Normal</td></tr>
+        						<tr><td style="text-align: center;">2</td><td>Exceptional</td></tr>
+        						<tr><td style="text-align: center;">3</td><td>Elite</td></tr>
+    						</table><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>rarity = 3</code></pre>
+        					<p><span style="color: red">OR</span></p>
+        					<pre><code>rarity = { “1”, “3” }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>rarity = “3-”</code></pre><br>
+    					</div>
+					</details><br>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<h3 id="Conditions-Subjective">Subjective Conditions</h3>
+					<p>These are conditions that will help you determine <b>why</b> you care about the item; subjective to what you desire</p>
+
+					<!---  Condition: sockets --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Sockets
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Sockets" style="margin: 0;"><b>sockets</b> - Defines the socket count that should match the condition. Uses a numeric value 0-6 to determine sockets</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>sockets = 3</code></pre>
+        					<p><span style="color: red">OR</span></p>
+        					<pre><code>sockets = { “1”, “3” }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>sockets = “3-”</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					
+
+					<!---  Condition: ethereal --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Ethereal
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Ethereal" style="margin: 0;"><b>ethereal</b> - Defines the ethereal status that should match the condition. Uses either true or false</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>ethereal = true</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: runeword --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Runeword
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Runeword" style="margin: 0;"><b>runeword</b> - Defines the runeword status that should match the condition. Uses either true or false</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>runeword = true</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: identified --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Identified
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Identified" style="margin: 0;"><b>identified</b> - Defines the identification status that should match the condition. Uses either true or false</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>identified = true</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: maxsock --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Max Sockets
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-MaxSockets" style="margin: 0;"><b>maxsock</b> - Determines if the item is at the current max socket count for it's item level. Uses either true or false</p>
+							<ul style="margin: 5 0 0 0px;">
+    							<li>If an item is currently level 30, and has 3/3 sockets, it will return true - even if at item level 40 it unlocks 4+ sockets</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>maxsock = true</code></pre>
+    					</div>
+					</details><br>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<h3 id="Conditions-Situational">Situational Conditions</h3>
+					<p>These are conditions that will help you determine <b>when</b> you care about the item; situational to what you need</p>
+
+					<!---  Condition: filter_levels --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Filter Level/Strictness
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-FilterLevel" style="margin: 0;"><b>filter_levels</b> - Defines the filter_level this rule should be assigned to. Uses user-defined values specified in <a href="#GlobalVariables-Main">Global Variables</a></p>
+							<ul style="margin: 5 0 0 0px;">
+    							<li>filter_levels are optional; if none are specified, default values will be assumed</li>
+								<li>filter_levels can either be treated as numeric values or titles/text</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>filter_levels = 1</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>filter_levels = { “1”, "2" }</code></pre>
+							<p><span style="color: red">OR</span></p>
+							<pre><code>filter_levels = { “Early-Game”, "Mid-Game", "End-Game" }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: location --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Location
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Location" style="margin: 0;"><b>location</b> - Defines the location (literal) that should match the condition. Uses a pre-defined value</p><br>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Location</b></td><td><b>Description</b></td></tr>
+        						<tr><td>onground</td><td>This is default behavior if no location is specified</td></tr>
+        						<tr><td>onplayer</td><td>In the player's inventory, cube or personal stash</td></tr>
+        						<tr><td>equipped</td><td>Actively equipped by the player</td></tr>
+								<tr><td>atvendor</td><td>A 'loose' reference to any item that doesn't match above conditions</td></tr>
+    						</table><br>
+							
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>location = "onground"</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>location = { “onground”, “onplayer”, "equipped" }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: area --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Area
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Area" style="margin: 0;"><b>area</b> - Defines the location (level) that should match the condition. Uses a user-configured value specified in <a href="#File2">LootFilter.lua</a> using the <b>AreaID</b> Table Map</p>
+							<span style="color: lightseagreen">AreaIDs = { ["Rogue Encampment"] = 1, ["Blood Moor"] = 2, etc }</span>
+							<ul style="margin: 5 0 0 0px;">
+    							<li>If you are not making a loot filter for <b>ReMoDDeD</b>, then you must comment out or delete <b>Line 39</b>: <span style="color: lightseagreen">mod = "RMD"</span></li>
+    							<li>If you have added new levels or edited names of existing ones, you will need to update this Table Map yourself</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>area = "Blood Moor"</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>area = { "Blood Moor", "Cold Plains", "Stony Field" }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: difficulty --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Difficulty
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Difficulty" style="margin: 0;"><b>difficulty</b> - Defines the difficulty that should match the condition. Uses a pre-defined value</p><br>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Difficulty</b></td></tr>
+        						<tr><td>Normal</td></tr>
+        						<tr><td>Nightmare</td></tr>
+        						<tr><td>Hell</td></tr>
+    						</table><br>
+							
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>difficulty = "Normal"</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>difficulty = { “Nightmare”, “Hell” }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: stat/pstat --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Stat / Pstat
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-StatPstat" style="margin: 0;"><b>stat / pstat</b> - Defines the stats/values that should exist to match the condition. Uses special and varying syntax</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li><p><b>Stat</b> is used to check stats on an item. <b>Pstat</b> is used to check stats on the player</p></li>
+    							<li>Due to how D2 processes stats, some will require <b>param</b> values, while others will not <a href="#StatParams">[More Info]</a></li>
+    							<li>This condition will also support comparison <a href="#Operands">Operands</a> to check value ranges</li>
+								<li>This condition will require the <a href="#StatID">Stat ID</a> as the 'index' to determine which stat to check</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>stat = { index = 93, op = "<=", value = 30 }<span style="color: lightseagreen">    --Check if 'item_fasterattackrate' is less than or equal to 30</span></code></pre>
+        					<p><span style="color: red">OR</span></p>
+        					<pre><code>stat = { index = {0, 1, 2, 3}, op = "==", value = 15 }<span style="color: lightseagreen">    --Check if 'strength', 'dexterity', 'vitality' and 'energy' are equal to 15</span></code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>pstat = { index = 12, op = "<=", value = 25 }<span style="color: lightseagreen">    --Check if player is 'level' 25 or less</span></code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>stat = { index = 97, op = ">=", param = 38, value = 1 }<span style="color: lightseagreen">    --Check if item grants +1 to Charged Bolt (or higher)</span></code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details><br>
+
+					<!---  Displays: Names  --->
+
+					<details>
+					<summary style="cursor: pointer; background: #101010; color: #156603; padding: 5px 10px; font-weight: bold; font-size: 36px;">Displays</summary>
+					<h3 id="Displays-ItemNames">Item Name</h3>
+					<p>These are displays that will help you alter how the item <b>name</b> is ultimately shown</p>
+
+					<!---  Displays: name_override --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Name Override
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-NameOverride" style="margin: 0;"><b>name_override</b> - Defines the new name the item should use, instead of the one specified from the string files</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>name_override = “SoJ”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: prefix --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Name Prefix
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-Prefix" style="margin: 0;"><b>prefix</b> - Defines the text that should be added <b>before</b> the item name</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>prefix = “[Perfect] ”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: suffix --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Name Suffix
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-Suffix" style="margin: 0;"><b>suffix</b> - Defines the text that should be added <b>after</b> the item name</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>suffix = “[Eth]”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: name_style --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Name Style
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-NameStyle" style="margin: 0;"><b>name_style</b> - Defines the color style that should be applied to the text. Uses pre-defined options</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li><b>Static</b> versions of all styles also exist, that do not contain animated coloring (add ' Static' at end)</li>
+							</ul>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Style</b></td><td><b>Description</b></td></tr>
+        						<tr><td>Rainbow</td><td><b>Animated</b> effect using rainbow coloring, applied with varying colors per letter</td></tr>
+        						<tr><td>Rainbow Group</td><td><b>Animated</b> effect using rainbow coloring, rotates colors across all letters as a group</td></tr>
+        						<tr><td>Cotton Candy</td><td><b>Animated</b> effect using Pink, Purple and White, applied with varying colors per letter</td></tr>
+								<tr><td>Frost Wave</td><td><b>Animated</b> effect using shades of Blue, applied with varying colors per letter</td></tr>
+        						<tr><td>Toxic Fog</td><td><b>Animated</b> effect using Green, Light Green and White, applied with varying colors per letter</td></tr>
+        						<tr><td>Open Flames</td><td><b>Animated</b> effect using Orange, Red and Grey, applied with varying colors per letter</td></tr>
+    						</table><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>name_style = “Frost Wave”</code></pre>
+    					</div>
+					</details><br>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: Tooltips --->
+
+					<h3 id ="Displays-Tooltip">Description/Tooltip</h3>
+					<p>These are displays that will help you alter how the item <b>description</b> is ultimately shown</p>
+
+					<!---  Displays: prefix_desc --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Description Prefix
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-DescPrefix" style="margin: 0;"><b>prefix_desc</b> - Defines the text that should be added <b>before</b> the item description</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>prefix_desc = “This item is cool because: ”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: suffix_desc --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Description Suffix
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-DescSuffix" style="margin: 0;"><b>suffix_desc</b> - Defines the text that should be added <b>after</b> the item description</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>suffix_desc = “Here's some more info: ”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: background --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Tooltip Background
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-TooltipBackground" style="margin: 0;"><b>background</b> - Defines the tooltip background color for the item</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li>Uses a series of 4 numeric values to determine the RGB color</li>
+								<li>The first 4 values are for R, G, B, A respectively</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>background = { 110, 110, 255, 255 }</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: background_style --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Tooltip Style
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-BackgroundStyle" style="margin: 0;"><b>background_style</b> - Defines the color style that should be applied to the text tooltip/background. Uses pre-defined options</p>
+							<table border="1" cellspacing="0" cellpadding="0">
+        						<tr><td><b>Style</b></td><td><b>Description</b></td></tr>
+        						<tr><td>Rainbow</td><td><b>Animated</b> effect using rainbow coloring, that pulses and changes size slowly</td></tr>
+        						<tr><td>Ocean Drift</td><td><b>Animated</b> effect using Blue coloring, that pulses and changes size slowly</td></tr>
+        						<tr><td>Fading Ember</td><td><b>Animated</b> effect using Orange coloring, that pulses and changes size slowly</td></tr>
+								<tr><td>Midnight Memory</td><td><b>Animated</b> effect using Purple coloring, that pulses and changes size slowly</td></tr>
+								<tr><td>Verdant Bloom</td><td><b>Animated</b> effect using Green coloring, that pulses and changes size slowly</td></tr>
+								<tr><td>Sapphire Sonnet</td><td><b>Animated</b> effect using Dark Blue coloring, that pulses and changes size slowly</td></tr>
+								<tr><td>Tamarillo Glow</td><td><b>Animated</b> effect using Red coloring, that pulses and changes size slowly</td></tr>
+    						</table><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>background_style = “Fading Ember”</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: border --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Tooltip Border
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-TooltipBorder" style="margin: 0;"><b>border</b> - Defines the tooltip border's color and width for the item</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li>Uses a series of 5 numeric values to determine the RGB color and the width</li>
+								<li>The first 4 values are for R, G, B, A respectively. The 5th value is the border pixel size</li>
+							</ul>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>border = { 110, 110, 255, 255, 5 }</code></pre>
+    					</div>
+					</details><br>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					
+
+					<!---  Displays: Actions --->
+
+					<h3 id="Displays-Actions">Actions</h3>
+					<p>These are displays that will help perform an <b>action</b>, such as hiding an item, or displaying a notification</p>
+
+					<!---  Displays: hide --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Hide
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-Hide" style="margin: 0;"><b>hide</b> - Hides both the item text and the world graphic for the item. Uses a true or false value</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li>If no hide value is specified, it is assumed false</li>
+								<li>The item is not deleted/removed permanently, it removes it from the active item table</li>
+								<li>To restore the visual of a hidden item, undo your affected rule, then visit a new area or game, and reload your filter</li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>hide = true</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Displays: notify --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Notifications
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Displays-Notify" style="margin: 0;"><b>notify</b> - Displays a chat message when the item has matched the conditions. Uses a text value</p>
+							<ul style="margin: 5 0 0 0px;">
+								<li>Notify can also use the {link} option in <a href="#OutputValues">Output Values</a></li>
+							</ul><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>notify = "Woohoo! {link}"</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details><br>
+
+					<!---  Global Options --->
+					<details>
+					<summary id = "GlobalOptions" style="cursor: pointer; background: #101010; color: #156603; padding: 5px 10px; font-weight: bold; font-size: 36px;">Global Options</summary>
+					<h3 id="Globals-Outputs">Output Values</h3>
+					<p>The following arguments can be used to output the specified value to the item name, description, or chat notification</p>
+
+					<!---  Globals: Output Values --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Outputs
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-Code" style="margin: 0;"><b>{code}</b> - Adds the <a href="#Condition-Code">code</a> value to the output</p>
+							<p id ="Globals-ItemLevel" style="margin: 0;"><b>{ilvl}</b> - Adds the <a href="#Condition-ItemLevel">ilvl</a> value to the output</p>
+							<p id ="Globals-Rarity" style="margin: 0;"><b>{rarity}</b> - Adds the <a href="#Condition-Rarity">rarity</a> value to the output</p>
+							<p id ="Globals-Quality" style="margin: 0;"><b>{quality}</b> - Adds the <a href="#Condition-Quality">quality</a> value to the output</p>
+							<p id ="Globals-Name" style="margin: 0;"><b>{name}</b> - Adds the <a href="#Displays-ItemName">name</a> text to the output</p>
+							<p id ="Globals-Ethereal" style="margin: 0;"><b>{ethereal}</b> - Adds the <a href="#Condition-Ethereal">ethereal</a> status to the output</p>
+							<p id ="Globals-Sockets" style="margin: 0;"><b>{sockets}</b> - Adds the <a href="#Condition-Sockets">socket</a> count to the output</p>
+							<p id ="Globals-Index" style="margin: 0;"><b>{index}</b> - Adds the <a href="#Condition-Index">ID</a> value to the output</p>
+							<p id ="Globals-ItemType" style="margin: 0;"><b>{itype}</b> - Adds the <a href="#Condition-ItemType">itype</a> value to the output</p>
+							<p id ="Globals-MaxSockets" style="margin: 0;"><b>{maxsock}</b> - Adds the <a href="#Condition-MaxSockets">maxsock</a> status to the output</p>
+							<p id ="Globals-StatPstat" style="margin: 0;"><b>{stat=(xxx)}</b> - Adds the <a href="#Condition-StatPstat">stat / pstat</a> value to the output</p><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Globals: Color Codes --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Available Colors
+    					</summary>
+						<ul style="margin: 5 0 0 0px;">
+								<li>All text following the color code will be changed to the specified color, including lines above or below due to how D2 handles tooltips</li>
+								<li>You will sometimes need to 'close' the color by adding the 'default' color (such as blue) at the end of the text</li>
+						</ul><br>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-ColorWhite" style="margin: 0;"><b>{white}</b> - Changes the color to <span style="color: #f0f0f0">White</span> (Uses <b>ÿc0</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{red}</b> - Changes the color to <span style="color: #fc4646">Red</span> (Uses <b>ÿc1</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{green}</b> - Changes the color to <span style="color: #00fc00">Green</span> (Uses <b>ÿc2</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{blue}</b> - Changes the color to <span style="color: #6e6eff">Blue</span> (Uses <b>ÿc3</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{gold}</b> - Changes the color to <span style="color: #c7b377">Gold</span> (Uses <b>ÿc4</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{grey/gray}</b> - Changes the color to <span style="color: #636363">Grey</span> (Uses <b>ÿc5</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{black}</b> - Changes the color to <span style="color: #636363">Black</span> (Uses <b>ÿc6</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{tan}</b> - Changes the color to <span style="color: #d0c27d">Tan</span> (Uses <b>ÿc7</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{orange}</b> - Changes the color to <span style="color: #ffa800">Orange</span> (Uses <b>ÿc8</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{yellow}</b> - Changes the color to <span style="color: #ffff64">Yellow</span> (Uses <b>ÿc9</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{purple}</b> - Changes the color to <span style="color: #c180f2">Purple</span> (Uses <b>ÿc;</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{dark green}</b> - Changes the color to <span style="color: #008000">Dark Green</span> (Uses <b>ÿcA</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{turquoise}</b> - Changes the color to <span style="color: #06a5dd">Turquoise</span> (Uses <b>ÿcN</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{pink}</b> - Changes the color to <span style="color: #f086eb">Pink</span> (Uses <b>ÿcO</b>)</p>
+							<p id ="Globals-ColorWhite" style="margin: 0;"><b>{lilac}</b> - Changes the color to <span style="color: #aaaaff">Lilac</span> (Uses <b>ÿcP</b>)</p>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details><br>
+
+					<!---  Globals: Special Operands --->
+
+					<h3 id="Globals-Operands">Operands</h3>
+					<p>The following arguments can be used to tell certain conditions to use logic such as <b>NOT</b> and <b>OR</b></p>
+
+					<!---  Globals: NOT --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					NOT
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-NOT" style="margin: 0;"><b>NOT</b> - Allows you to exclude all of the entries for a specific condition</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>area = NOT {"Rogue Encampment", "Lut Gholein", "Kurast Docktown", "The Pandemonium Fortress", "Harrogath"}</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>codes = NOT { "abc", "def", "ghi" }</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: OR --->
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					OR
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-OR" style="margin: 0;"><b>OR</b> - Allows you to choose between 1 or more entries for a specific condition</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>stat = OR { index = {0, 1}, op = "==", value = 15 }</code></pre><br>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Operands
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-less" style="margin: 0;"><b><</b> - Value is less than</p>
+							<p id ="Globals-less" style="margin: 0;"><b>-</b> - Value is less than (Example: 3-)</p>
+							<p id ="Globals-greater" style="margin: 0;"><b>></b> - Value is greater than</p>
+							<p id ="Globals-greater" style="margin: 0;"><b>+</b> - Value is greater than(Example: 3+)</p>
+							<p id ="Globals-equals" style="margin: 0;"><b>==</b> - Value is equal to</p>
+							<p id ="Globals-equals" style="margin: 0;"><b><=</b> - Value is less than or equal to</p>
+							<p id ="Globals-equals" style="margin: 0;"><b>>=</b> - Value is greater than or equal to</p>
+							<p id ="Globals-equals" style="margin: 0;"><b>between</b> - Value is between x and y (used on <a href="#Condition-StatPstat">Stat/Pstat</a> condition only)</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>stat = { index = 12, op = "==", value = 15 }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>sockets = "3+"</code></pre><br>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>stat = { index = 12, op = "between", value = { 15, 25 } }</code></pre><br>
+							
+    					</div>
+					</details><br>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Globals: Filter Controls --->
+
+					<h3 id="Globals-FilterControls">Filter Controls</h3>
+					<p>The following arguments can be applied as a global modifier for your loot filter, changing it's overall behavior or output.</p>
+					<ul style="margin: 5 0 0 0px;">
+						<li>The options listed below must be applied before your 'rules' section, as shown in the <a href="#FilterTemplate">Barebones Template</a></li>
+					</ul>
+
+					<!---  Globals: reload --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #6e1301;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Reload Message
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-Reload" style="margin: 0;"><b>reload</b> - Allows you to specify the chat message displayed when config is reloaded in-game</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>reload = "My Loot Filter {red}v1.0"</code></pre>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: debug --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Debug Mode
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-Debug" style="margin: 0;"><b>debug</b> - Allows you to toggle the Debug Mode, which will display rule match logic in chat</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>debug = true</code></pre>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: allowOverrides --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Filter Overrides
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-Overrides" style="margin: 0;"><b>allowOverrides</b> - Allows other loot filters, such as a mod's default filter, to be loaded alongside your own</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>allowOverrides = true</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: filter_level --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Filter Level
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-FilterLevel" style="margin: 0;"><b>filter_level</b> - Displays/Controls your currently active filter level. Controllable via D2RLAN hotkeys in-game.</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>filter_level = 1</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: filter_titles --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Filter Titles
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-FilterTitles" style="margin: 0;"><b>filter_titles</b> - Allows you set how filter_levels are displayed in-game, using either numbers or text</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>filter_titles = { "1", "2", "3" }</code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>filter_titles = { "Early-Game", "Mid-Game", "End-Game" }</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+					<!---  Globals: language --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Filter Language
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-FilterLanguage" style="margin: 0;"><b>language</b> - Allows the loot filter to change text output depending on language selected. English (enUS) is defaulted</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>language = "enUS"</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+				</details><br>
+
+					<details>
+					<summary id="DemoTemplates" style="cursor: pointer; background: #101010; color: #156603; padding: 5px 10px; font-weight: bold; font-size: 36px;">Demo Templates</summary>
+					<h3 id="Templates-Barebones">Barebones Template</h3>
+					<p>This template will show you how the filter should be structured. No rules will be included in this template</p>
+					<p>All of the global variables are optional, they will be included for clarity sake only</p><br>
+
+					<pre class="language-lua">
+<code>--- Filter Title: My Filter
+--- Filter Type: (None)
+--- Filter Description: This is my blank filter
+--- Filter Link: https://mylink.con/myconfig.lua
+return {
+    reload = "My Loot Filter {red}v1.0",
+    allowOverrides = true,
+    language = "enUS",
+    filter_level = 1,
+    filter_titles = { "Early-Game", "Mid-Game", "Late-Game" },
+    debug = false,
+    <span class="keywordr">rules</span> = {
+    -- Rule #1
+        {
+            codes = "allitems"
+            prefix = "{red}[Filter Working]\n"
+        },
+        -- Rule #2
+        {
+            codes = "allitems"
+            suffix = "\n{purple}[Still Working]"
+        }
+    }
+}
+</code>
+</pre><br>
+
+<style>
+.codeblock {
+    background: #202020;
+    color: #cfcfcf;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4em;
+    white-space: pre;
+}
+.codeblock .comment { color: #6a9955; font-style: italic; }
+.codeblock .keyword { color: #569cd6; }
+.codeblock .boolean { color: #b5cea8; }
+.codeblock .string { color: #ce9178; }
+.codeblock .number { color: #b5cea8; }
+.codeblock .keywordr { color: #965cbf; }
+</style>
+
+
+				<!---  Filter Template --->
+					<h3 id="Templates-RMDExample">RMD Example Template</h3>
+					<p>This loot filter is a very basic template used to display item levels, socket counts, and a few other commonly requested options for the mod, ReMoDDeD</p>
+					<p>Please keep in mind that certain item levels, item types, etc may exist in this template that don't exist in retail; it is for demo purposes only </p>
+
+										<pre class="language-lua">
+<code><span class="comment">--- Filter Title: ReMoDDeD Default</span>
+<span class="comment">--- Filter Type: (Basic)</span>
+<span class="comment">--- Filter Description: This is a barebones filter that adds only the frequently requested modifications; such as item levels, socket counts, etc.</span>
+<span class="comment">--- Filter Link: https://github.com/locbones/D2RLAN-Filters/raw/refs/heads/main/ReMoDDeD/lootfilter_default.lua</span>
+<span class="keyword">return</span> {
+    reload = <span class="string">"{turquoise}RMD Barebones Filter {gray}(v1.0) {green}Reloaded",</span>
+    language = <span class="string">"enUS",</span>
+    allowOverrides = <span class="boolean">true,</span>
+    filter_level = <span class="number">2,</span>
+    filter_titles = <span class="string">{ "1", "2" },</span>
+    <span class="keywordr">rules</span> = {
+        { <span class="comment">--Display item levels for weapons, armors, charms, jewels, rings, amulets and arrows, in white, to the right of item name, (x)</span>
+            codes = "allitems",
+            location = { "onground", "onplayer", "equipped", "atvendor" },
+            itype = { 5, 10, 12, 45, 50, 58, 82, 83, 84 },
+            suffix = " {white}({ilvl})",
+        },
+        { --Display socket count in gray, to the right of item name, [x]
+            codes = "allitems",
+            sockets = "1+",
+            location = { "onground", "onplayer", "equipped", "atvendor" },
+            itype = { 10, 12, 45, 50, 58, 82, 83, 84 },
+            suffix = " {gray}[{sockets}]"
+        },
+        { --Display RMD "Elite Bases" with a special EB icon in RMD Red, to the right of item name
+            codes = "allitems",
+            rarity = 2,
+            location = { "onground", "onplayer", "equipped", "atvendor" },
+            ilvl = "102-",
+            itype = { 45, 50 },
+            suffix = " {tan}ⅲ"
+        },
+        { --Display RMD "Limit Broken Bases" with a special LB icon in RMD Red, to the right of item name
+            codes = { "l01", "l02", "l03", "l04", "l05", "l06", "l07", "l08", "l09", "l10", "l11", "l12", "l13", "l14","l15", "l16", "l17", "l18" },
+            location = { "onground", "onplayer", "equipped", "atvendor" },
+            ilvl = "103+",
+            itype = { 45, 50 },
+            suffix = " {tan}ⅳ"
+        },
+        { --Quality of Life Bag Description
+            code = "Z01",
+            location = "onplayer",
+            prefix = "\n{gray}(Cube Recipes > Quality of Life Bag)\n{white} -More info can be found on our {turquoise}Wiki\n{white}-You can find item {turquoise}removers {white}from {turquoise}Edyrem {white}in each town\n{gray}(Gems, Runes, Keys, Organs, Rare Jewels, Full Rejuvs and Set/Unique items)\n {white}-Many items can be deposited into this bag for various purposes\n{turquoise}Mod Tips:\n\n"
+        },
+        { --Color Dyed: Bright White
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 22 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {white}Bright White\n"
+        },
+        { --Color Dyed: Black
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 4 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {grey}Black\n"
+        },
+        { --Color Dyed: Crystal Blue
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 7 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {blue}Crystal Blue\n"
+        },
+        { --Color Dyed: Crystal Red
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 10 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {red}Crystal Red\n"
+        },
+        { --Color Dyed: Crystal Green
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 13 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {green}Crystal Green\n"
+        },
+        { --Color Dyed: Light Yellow
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 14 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {yellow}Light Yellow\n"
+        },
+        { --Color Dyed: Light Purple
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 18 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {purple}Light Purple\n"
+        },
+        { --Color Dyed: White
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 1 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {white}White\n"
+        },
+        { --Color Dyed: Light Grey
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 2 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {grey}Light Grey\n"
+        },
+        { --Color Dyed: Dark Grey
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 3 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {grey}Dark Grey\n"
+        },
+        { --Color Dyed: Light Blue
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 5 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {blue}Bright White\n"
+        },
+        { --Color Dyed: Dark Blue
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 6 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {blue}Dark Blue\n"
+        },
+        { --Color Dyed: Light Red
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 8 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {red}Light Red\n"
+        },
+        { --Color Dyed: Dark Red
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 9 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {red}Dark Red\n"
+        },
+        { --Color Dyed: Light Green
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 11 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {green}Light Green\n"
+        },
+        { --Color Dyed: Dark Green
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 12 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {green}Dark Green\n"
+        },
+        { --Color Dyed: Dark Yellow
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 15 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {yellow}Dark Yellow\n"
+        },
+        { --Color Dyed: Dark Purple
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 19 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {purple}Dark Purple\n"
+        },
+        { --Color Dyed: Orange
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 20 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {orange}Orange\n"
+        },
+        { --Color Dyed: Light Gold
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 16 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {gold}Light Gold\n"
+        },
+        { --Color Dyed: Dark Gold
+            codes = "allitems",
+            location = { "onplayer", "equipped", "atvendor" },
+            stat = { index = 433, op = "==", value = 17 },
+            filter_levels = 1,
+            prefix_desc = "{lilac}Color Dyed: {gold}Dark Gold\n"
+        },
+        
+    }
+}
+
+</code>
+</pre>
+
+
+					</details>
+				
+
+
+				</article>
+
+			</div>
+		</section>
+	</div>
+
+
+	<!---  SCRIPT  --->
+
+
+	<script>
+
+		//Highlighter function
+		document.querySelectorAll('a').forEach(link => {
+			link.addEventListener('click', function (event) {
+				const targetId = this.getAttribute('href').substring(1);
+				const targetElement = document.getElementById(targetId);
+
+				if (targetElement) {
+					targetElement.classList.add('highlight');
+
+					setTimeout(() => {
+						targetElement.classList.add('fade-out');
+					}, 750);
+
+					const targetColumnIndex = targetElement.cellIndex;
+					const table = targetElement.closest('table');
+
+					if (table) {
+						const cellsInColumn = table.querySelectorAll('tr td:nth-child(' + (targetColumnIndex + 1) + ')');
+						cellsInColumn.forEach(cell => {
+							cell.classList.add('highlight');
+						});
+
+						setTimeout(() => {
+							cellsInColumn.forEach(cell => {
+								cell.classList.add('fade-out');
+							});
+						}, 750);
+
+						setTimeout(() => {
+							cellsInColumn.forEach(cell => {
+								cell.classList.remove('highlight', 'fade-out');
+							});
+						}, 3000);
+					}
+
+					setTimeout(() => {
+						targetElement.classList.remove('highlight', 'fade-out');
+					}, 3000);
+				}
+			});
+		});
+
+		//Divider Panel Function
+		var toc = document.querySelector('.toc');
+		var tocPath = document.querySelector('.toc-marker path');
+		var tocItems;
+		var TOP_MARGIN = 0.00,
+			BOTTOM_MARGIN = 0.1;
+		var pathLength;
+		var lastPathStart,
+			lastPathEnd;
+
+		window.addEventListener('resize', drawPath, false);
+		window.addEventListener('scroll', sync, false);
+
+		drawPath();
+
+		function drawPath() {
+			tocItems = Array.from(toc.querySelectorAll('li')).map(function (item) {
+				var anchor = item.querySelector('a');
+				var target = document.getElementById(anchor.getAttribute('href').slice(1));
+				return target ? { listItem: item, anchor: anchor, target: target } : null;
+			}).filter(Boolean);
+
+			var path = [];
+			var pathIndent;
+
+			tocItems.forEach(function (item, i) {
+				var x = item.anchor.offsetLeft - 5,
+					y = item.anchor.offsetTop,
+					height = item.anchor.offsetHeight;
+
+				if (i === 0) {
+					path.push('M', x, y, 'L', x, y + height);
+					item.pathStart = 0;
+				} else {
+					if (pathIndent !== x) path.push('L', pathIndent, y);
+					path.push('L', x, y);
+					tocPath.setAttribute('d', path.join(' '));
+					item.pathStart = tocPath.getTotalLength() || 0;
+					path.push('L', x, y + height);
+				}
+
+				pathIndent = x;
+				tocPath.setAttribute('d', path.join(' '));
+				item.pathEnd = tocPath.getTotalLength();
+			});
+
+			pathLength = tocPath.getTotalLength();
+			sync();
+		}
+
+		function sync() {
+			var windowHeight = window.innerHeight;
+
+			var pathStart = pathLength,
+				pathEnd = 0;
+
+			var visibleItems = 0;
+			var topMostVisibleItem = null;
+
+			tocItems.forEach(function (item) {
+				var targetBounds = item.target.getBoundingClientRect();
+
+				if (targetBounds.bottom > windowHeight * TOP_MARGIN && targetBounds.top < windowHeight * (1 - BOTTOM_MARGIN)) {
+					visibleItems += 1;
+
+					// Identify the topmost visible item
+					if (!topMostVisibleItem || targetBounds.top < topMostVisibleItem.target.getBoundingClientRect().top) {
+						topMostVisibleItem = item;
+					}
+				}
+
+				// Reset all items initially
+				item.listItem.classList.remove('visible');
+				item.listItem.style.color = '';
+			});
+
+			if (topMostVisibleItem) {
+				// Highlight only the topmost visible item
+				topMostVisibleItem.listItem.classList.add('visible');
+				topMostVisibleItem.listItem.style.color = 'gray';
+			}
+
+			if (visibleItems > 0 && pathStart < pathEnd) {
+				if (pathStart !== lastPathStart || pathEnd !== lastPathEnd) {
+					tocPath.setAttribute('stroke-dashoffset', '1');
+					tocPath.setAttribute('stroke-dasharray', `1, ${pathStart}, ${pathEnd - pathStart}, ${pathLength}`);
+					tocPath.setAttribute('opacity', 1);
+				}
+			} else {
+				tocPath.setAttribute('opacity', 0);
+			}
+
+			lastPathStart = pathStart;
+			lastPathEnd = pathEnd;
+		}
+
+	</script>
+
+</body>
+
+</html>
