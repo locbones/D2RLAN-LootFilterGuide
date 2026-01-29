@@ -441,9 +441,9 @@
         					<p id ="Condition-Rarity" style="margin: 0;"><b>rarity</b> - Defines the rarity that should match the condition. Uses a numeric value 1-3 to determine rarity</p>
 							<table border="1" cellspacing="0" cellpadding="0">
         						<tr><td><b>Value</b></td><td><b>Rarity</b></td></tr>
-        						<tr><td style="text-align: center;">1</td><td>Normal</td></tr>
-        						<tr><td style="text-align: center;">2</td><td>Exceptional</td></tr>
-        						<tr><td style="text-align: center;">3</td><td>Elite</td></tr>
+        						<tr><td style="text-align: center;">0</td><td>Normal</td></tr>
+        						<tr><td style="text-align: center;">1</td><td>Exceptional</td></tr>
+        						<tr><td style="text-align: center;">2</td><td>Elite</td></tr>
     						</table><br>
 
         					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
@@ -583,6 +583,30 @@
 
         					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
         					<pre><code>maxsock = true</code></pre>
+    					</div>
+					</details>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+
+					<!---  Condition: Grail --->
+
+					<details style="margin: 20px 0; border-top: 2px solid #444; padding-top: 10px;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Grail Status
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Condition-Grail" style="margin: 0;"><b>grail</b> - Defines the grail collection status that should match the condition. Uses either true or false</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>grail = false</code></pre>
     					</div>
 					</details><br>
 
@@ -749,7 +773,9 @@
 							<p><span style="color: red">OR</span></p>
         					<pre><code>pstat = { index = 12, op = "<=", value = 25 }<span style="color: lightseagreen">    --Check if player is 'level' 25 or less</span></code></pre>
 							<p><span style="color: red">OR</span></p>
-        					<pre><code>stat = { index = 97, op = ">=", param = 38, value = 1 }<span style="color: lightseagreen">    --Check if item grants +1 to Charged Bolt (or higher)</span></code></pre><br>
+        					<pre><code>stat = { index = 97, op = ">=", param = 38, value = 1 }<span style="color: lightseagreen">    --Check if item grants +1 to Charged Bolt (or higher)</span></code></pre>
+							<p><span style="color: red">OR</span></p>
+        					<pre><code>stat = { { index = 95, op = ">=", value = 15 }, { index = 103, op = ">=", value = 15 } }<span style="color: lightseagreen">    --Check if item grants +15% IAS <ul>and</ul> +15% FCR</span></code></pre><br>
     					</div>
 					</details>
 
@@ -852,7 +878,7 @@
     					<div style="padding: 5px 0 0 5px;">
         					<p id ="Displays-NameStyle" style="margin: 0;"><b>name_style</b> - Defines the color style that should be applied to the text. Uses pre-defined options</p>
 							<ul style="margin: 5 0 0 0px;">
-								<li><b>Static</b> versions of all styles also exist, that do not contain animated coloring (add ' Static' at end)</li>
+								<li><b>Static</b> versions of all styles also exist, that do not contain animated coloring (add 'Static' at end)</li>
 							</ul>
 							<table border="1" cellspacing="0" cellpadding="0">
         						<tr><td style="text-align: center;"><b>Style</b></td><td style="text-align: center;"><b>Example</b></td></tr>
@@ -1401,6 +1427,55 @@
 					}
 					</style>
 					</details>
+				
+
+				<!---  Globals: Audio Playback --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Audio Playback
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-AudioPlayback" style="margin: 0;"><b>audioPlayback</b> - Allows the loot filter to use TTS and custom audio files. Uses a true or false value</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>audioPlayback = true</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
+
+				<!---  Globals: Audio Voice --->
+
+					<details style="margin: 15px 0; border-top: 2px solid #444;">
+    					<summary style="cursor: pointer; background: #101010; color: orange; padding: 5px 10px; font-weight: bold;">
+        					Audio Voice
+    					</summary>
+
+    					<div style="padding: 5px 0 0 5px;">
+        					<p id ="Globals-AudioVoice" style="margin: 0;"><b>audioVoice</b> - Allows you to specify the TTS voice used, dependant on which voices you have installed in Windows. Uses an integer value from 0 to x</p><br>
+
+        					<p><span style="color: #965cbf"><b>Usage Example(s)</b></span></p>
+        					<pre><code>audioVoice = 0</code></pre><br>
+    					</div>
+
+					<style>
+					pre {
+    					margin: 0;
+    					padding: 8px;
+    					background: #202020;
+    					color: whitesmoke;
+					}
+					</style>
+					</details>
 				</details><br>
 
 					<!---  Demo Templates --->
@@ -1424,6 +1499,8 @@ return {
     language = "enUS",
     filter_level = 1,
     filter_titles = { "Early-Game", "Mid-Game", "Late-Game" },
+    audioPlayback = true,
+    audioVoice = 0,
     debug = false,
     <span class="keywordr">rules</span> = {
     -- Rule #1
